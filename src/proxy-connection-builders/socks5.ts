@@ -3,7 +3,7 @@ import * as tls from 'tls';
 import { IProxyConnectionBuilder } from '../interfaces/proxy-connection-builder';
 import { IProxyConnection } from '../interfaces/proxy-connection';
 import { ISocketBuilder } from '../interfaces/socket-builder';
-import { SOCKS5Connection } from '../proxy-connections/socks5';
+import { SOCKS5ProxyConnection } from '../proxy-connections/socks5';
 
 export class SOCKS5ProxyConnectionBuilder implements IProxyConnectionBuilder {
   protected socketBuilder: ISocketBuilder = null;
@@ -11,7 +11,7 @@ export class SOCKS5ProxyConnectionBuilder implements IProxyConnectionBuilder {
   protected sourceSocket: tls.TLSSocket | net.Socket = null;
 
   public build(): IProxyConnection {
-    return new SOCKS5Connection(this.sourceSocket, this.socketBuilder);
+    return new SOCKS5ProxyConnection(this.sourceSocket, this.socketBuilder);
   }
 
   public reset(): IProxyConnectionBuilder {

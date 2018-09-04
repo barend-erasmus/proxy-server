@@ -2,7 +2,7 @@ import * as net from 'net';
 import { IProxyConnection } from '../interfaces/proxy-connection';
 import { ISocketBuilder } from '../interfaces/socket-builder';
 
-export class ForwardConnection implements IProxyConnection {
+export class ForwardProxyConnection implements IProxyConnection {
   protected destinationSocket: net.Socket = null;
 
   constructor(

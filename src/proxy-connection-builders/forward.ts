@@ -2,7 +2,7 @@ import * as net from 'net';
 import * as tls from 'tls';
 import { IProxyConnectionBuilder } from '../interfaces/proxy-connection-builder';
 import { IProxyConnection } from '../interfaces/proxy-connection';
-import { ForwardConnection } from '../proxy-connections/forward';
+import { ForwardProxyConnection } from '../proxy-connections/forward';
 import { ISocketBuilder } from '../interfaces/socket-builder';
 
 export class ForwardProxyConnectionBuilder implements IProxyConnectionBuilder {
@@ -15,7 +15,7 @@ export class ForwardProxyConnectionBuilder implements IProxyConnectionBuilder {
   protected sourceSocket: tls.TLSSocket | net.Socket = null;
 
   public build(): IProxyConnection {
-    return new ForwardConnection(this.hostname, this.port, this.sourceSocket, this.socketBuilder);
+    return new ForwardProxyConnection(this.hostname, this.port, this.sourceSocket, this.socketBuilder);
   }
 
   public reset(): IProxyConnectionBuilder {

@@ -12,7 +12,7 @@ import { SOCKS5AuthenticationResponse } from '../socks5/socks5-authentication-re
 import { SOCKS5AuthenticationStatus } from '../socks5/socks5-authentication-status';
 import { ISocketBuilder } from '../interfaces/socket-builder';
 
-export class SOCKS5Connection implements IProxyConnection {
+export class SOCKS5ProxyConnection implements IProxyConnection {
   protected destinationSocket: net.Socket = null;
 
   protected greetingRequest: SOCKS5GreetingRequest = null;
