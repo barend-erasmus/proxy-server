@@ -1,11 +1,16 @@
 import * as net from 'net';
 import { IProxyConnection } from '../interfaces/proxy-connection';
-import { SocketHelper } from '../helpers/socket';
+import { ISocketBuilder } from '../interfaces/socket-builder';
 
 export class ForwardConnection implements IProxyConnection {
   protected destinationSocket: net.Socket = null;
 
-  constructor(protected hostname: string, protected port: number, protected sourceSocket: net.Socket) {
+  constructor(
+    protected hostname: string,
+    protected port: number,
+    protected sourceSocket: net.Socket,
+    protected socketBuilder: ISocketBuilder,
+  ) {
     this.initialize();
   }
 
@@ -36,11 +41,12 @@ export class ForwardConnection implements IProxyConnection {
   }
 
   protected async initialize(): Promise<void> {
-    this.destinationSocket = await SocketHelper.createDestinationSocket(
-      this.hostname,
-      this.port,
-      this.sourceSocket,
-      () => this.close(),
-    );
+    this.destinationSocket = await this.socketBuilder
+      .reset()
+      .setHostname(this.hostname)
+      .setPort(this.port)
+      .setSourceSocket(this.sourceSocket)
+      .setCloseFn(() => this.close())
+      .build();
   }
 }

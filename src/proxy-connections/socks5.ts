@@ -1,7 +1,6 @@
 import * as net from 'net';
 import { IProxyConnection } from '../interfaces/proxy-connection';
 import { ISOCKS5Response } from '../socks5/socks5-response';
-import { SocketHelper } from '../helpers/socket';
 import { SOCKS5GreetingRequest } from '../socks5/socks5-greeting-request';
 import { SOCKS5GreetingResponse } from '../socks5/socks5-greeting-response';
 import { SOCKS5ConnectionRequest } from '../socks5/socks5-connection-request';
@@ -11,6 +10,7 @@ import { SOCKS5Status } from '../socks5/socks5-status';
 import { SOCKS5AuthenticationRequest } from '../socks5/socks5-authentication-request';
 import { SOCKS5AuthenticationResponse } from '../socks5/socks5-authentication-response';
 import { SOCKS5AuthenticationStatus } from '../socks5/socks5-authentication-status';
+import { ISocketBuilder } from '../interfaces/socket-builder';
 
 export class SOCKS5Connection implements IProxyConnection {
   protected destinationSocket: net.Socket = null;
@@ -24,7 +24,7 @@ export class SOCKS5Connection implements IProxyConnection {
   protected connectionRequest: SOCKS5ConnectionRequest = null;
   protected connectionResponse: SOCKS5ConnectionResponse = null;
 
-  constructor(protected sourceSocket: net.Socket) {}
+  constructor(protected sourceSocket: net.Socket, protected socketBuilder: ISocketBuilder) {}
 
   public async close(): Promise<void> {
     if (this.sourceSocket) {
@@ -61,12 +61,13 @@ export class SOCKS5Connection implements IProxyConnection {
     }
 
     if (!this.destinationSocket) {
-      this.destinationSocket = await SocketHelper.createDestinationSocket(
-        this.connectionRequest.address,
-        this.connectionRequest.port,
-        this.sourceSocket,
-        () => this.close(),
-      );
+      this.destinationSocket = await this.socketBuilder
+        .reset()
+        .setHostname(this.connectionRequest.address)
+        .setPort(this.connectionRequest.port)
+        .setSourceSocket(this.sourceSocket)
+        .setCloseFn(() => this.close())
+        .build();
     }
 
     return this.destinationSocket;

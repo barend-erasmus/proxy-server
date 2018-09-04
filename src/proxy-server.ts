@@ -1,13 +1,19 @@
 import * as net from 'net';
 import { IProxyConnection } from './interfaces/proxy-connection';
-import { ForwardConnection } from './proxy-connections/forward';
-import { SOCKS5Connection } from './proxy-connections/socks5';
 import { IDomainEvents } from './interfaces/domain-events';
+import { ISocketBuilder } from './interfaces/socket-builder';
+import { IProxyConnectionBuilder } from './interfaces/proxy-connection-builder';
 
 export class ProxyServer {
   protected server: net.Server = null;
 
-  constructor(protected hostname: string, protected port: number, protected domainEvents: IDomainEvents) {}
+  constructor(
+    protected hostname: string,
+    protected port: number,
+    protected proxyConnectionBuilder: IProxyConnectionBuilder,
+    protected socketBuilder: ISocketBuilder,
+    protected domainEvents: IDomainEvents,
+  ) {}
 
   public listen(server: net.Server): void {
     this.server = server;
@@ -18,9 +24,11 @@ export class ProxyServer {
   }
 
   public onConnection(sourceSocket: net.Socket): void {
-    // const proxyConnection: IProxyConnection = new ForwardConnection('127.0.0.1', 1337, sourceSocket);
-
-    const proxyConnection: IProxyConnection = new SOCKS5Connection(sourceSocket);
+    const proxyConnection: IProxyConnection = this.proxyConnectionBuilder
+      .reset()
+      .setSourceSocket(sourceSocket)
+      .setSocketBuilder(this.socketBuilder)
+      .build();
 
     sourceSocket.on('data', async (buffer: Buffer) => {
       this.domainEvents.dataReceivedFromSource(buffer, sourceSocket);
