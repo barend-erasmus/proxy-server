@@ -5,7 +5,7 @@ import { IProxyConnection } from '../interfaces/proxy-connection';
 import { ISocketBuilder } from '../interfaces/socket-builder';
 import { SOCKS5Connection } from '../proxy-connections/socks5';
 
-export class ForwardProxyConnectionBuilder implements IProxyConnectionBuilder {
+export class SOCKS5ProxyConnectionBuilder implements IProxyConnectionBuilder {
   protected socketBuilder: ISocketBuilder = null;
 
   protected sourceSocket: tls.TLSSocket | net.Socket = null;
