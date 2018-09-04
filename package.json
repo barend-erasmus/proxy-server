@@ -1,0 +1,21 @@
+{
+  "name": "proxy-server",
+  "version": "1.0.0",
+  "description": "Proxy Server written in Node.js",
+  "scripts": {
+    "start": "tsc & node ./dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barend-erasmus/proxy-server.git"
+  },
+  "author": "Barend Erasmus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/barend-erasmus/proxy-server/issues"
+  },
+  "homepage": "https://github.com/barend-erasmus/proxy-server#readme",
+  "devDependencies": {
+    "@types/node": "^10.9.4"
+  }
+}
