@@ -2,6 +2,7 @@ import * as commander from 'commander';
 import { spawnSync } from 'child_process';
 import * as fs from 'fs';
 import * as net from 'net';
+import chalk from 'chalk';
 import {
   IServerBuilder,
   ISocketBuilder,
@@ -17,9 +18,7 @@ import {
   SOCKS5ProxyConnectionBuilder,
 } from './index';
 
-const chalk: any = null;
-
-commander.version('0.1.1');
+commander.version('0.1.2');
 
 commander
   .command('start')
