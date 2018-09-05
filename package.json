@@ -1,5 +1,5 @@
 {
-  "name": "@barend-erasmus/proxy-server",
+  "name": "proxy-server-cli",
   "version": "0.1.0",
   "description": "Proxy Server written in Node.js",
   "main": "./dist/index.js",
