@@ -19,7 +19,7 @@ import {
 
 const chalk: any = null;
 
-commander.version('0.1.0');
+commander.version('0.1.1');
 
 commander
   .command('start')

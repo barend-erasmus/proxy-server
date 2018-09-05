@@ -3,7 +3,7 @@ Proxy Server written in Node.js
 
 ## Installation
 
-`npm install -g @barend-erasmus/proxy-server`
+`npm install -g proxy-server-cli`
 
 ## Usage
 
