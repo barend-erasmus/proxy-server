@@ -61,11 +61,11 @@ Usage: start [options]
 
 ## Dependencies
 
-* [commander](https://www.npmjs.com/package/commander) - TODO
+* [commander](https://www.npmjs.com/package/commander) - The complete solution for node.js command-line interfaces, inspired by Ruby's commander.
 
 ### Dev Dependencies
 
-* [@types/node](https://www.npmjs.com/package/@types/node) - TODO
+* [@types/node](https://www.npmjs.com/package/@types/node)
 
 ## Contributors
 
