@@ -61,6 +61,7 @@ Usage: start [options]
 
 ## Dependencies
 
+* [chalk](https://www.npmjs.com/package/chalk) - Terminal string styling done right
 * [commander](https://www.npmjs.com/package/commander) - The complete solution for node.js command-line interfaces, inspired by Ruby's commander.
 
 ### Dev Dependencies
