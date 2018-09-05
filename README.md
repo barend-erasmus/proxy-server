@@ -1,6 +1,10 @@
 # Proxy Server
 Proxy Server written in Node.js
 
+## Installation
+
+`npm install -g @barend-erasmus/proxy-server`
+
 ## Usage
 
 ```
